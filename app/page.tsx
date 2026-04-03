@@ -121,7 +121,9 @@ export default function Home() {
 
   const handleSubmit = async () => {
     if (!nombre || !fechaNacimiento || blocked) return;
-    trackEvent('form_submit', { nombre_length: nombre.length, intencion: intencion || 'none' });
+    const nombreCap = nombre.trim().split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+    setNombre(nombreCap);
+    trackEvent('form_submit', { nombre_length: nombreCap.length, intencion: intencion || 'none' });
     setStep('loading');
     setLoadingIdx(0);
     setResultado('');
