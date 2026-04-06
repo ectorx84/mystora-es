@@ -18,6 +18,46 @@ const LOADING_MESSAGES = [
   "Un mensaje se revela..."
 ];
 
+// ===== STARS DATA =====
+const STARS = [
+  { top: '5%', left: '10%', size: 4, duration: 3 },
+  { top: '12%', left: '85%', size: 6, duration: 4.5 },
+  { top: '20%', left: '45%', size: 5, duration: 3.8 },
+  { top: '8%', left: '60%', size: 4, duration: 5 },
+  { top: '30%', left: '20%', size: 7, duration: 4 },
+  { top: '25%', left: '75%', size: 5, duration: 3.2 },
+  { top: '40%', left: '5%', size: 6, duration: 4.8 },
+  { top: '35%', left: '90%', size: 4, duration: 3.5 },
+  { top: '50%', left: '30%', size: 8, duration: 5.5 },
+  { top: '45%', left: '65%', size: 5, duration: 3.7 },
+  { top: '55%', left: '15%', size: 4, duration: 4.2 },
+  { top: '60%', left: '80%', size: 6, duration: 3.3 },
+  { top: '65%', left: '50%', size: 5, duration: 4.6 },
+  { top: '70%', left: '35%', size: 7, duration: 5.2 },
+  { top: '75%', left: '70%', size: 4, duration: 3.9 },
+  { top: '80%', left: '10%', size: 6, duration: 4.4 },
+  { top: '85%', left: '55%', size: 5, duration: 3.6 },
+  { top: '90%', left: '25%', size: 4, duration: 5.1 },
+  { top: '92%', left: '85%', size: 7, duration: 4.3 },
+  { top: '15%', left: '30%', size: 5, duration: 3.4 },
+  { top: '38%', left: '55%', size: 4, duration: 4.7 },
+  { top: '48%', left: '8%', size: 6, duration: 3.1 },
+  { top: '58%', left: '92%', size: 5, duration: 5.3 },
+  { top: '72%', left: '48%', size: 4, duration: 4.1 },
+  { top: '88%', left: '40%', size: 6, duration: 3.8 },
+];
+
+const PARTICLES = [
+  { bottom: '0%', left: '10%', size: 8, duration: 12 },
+  { bottom: '0%', left: '25%', size: 10, duration: 15 },
+  { bottom: '0%', left: '40%', size: 7, duration: 11 },
+  { bottom: '0%', left: '55%', size: 12, duration: 14 },
+  { bottom: '0%', left: '70%', size: 9, duration: 13 },
+  { bottom: '0%', left: '85%', size: 8, duration: 16 },
+  { bottom: '0%', left: '33%', size: 11, duration: 10 },
+  { bottom: '0%', left: '65%', size: 7, duration: 17 },
+];
+
 export default function Home() {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
@@ -44,7 +84,6 @@ export default function Home() {
     const params = new URLSearchParams(window.location.search);
     const nombreParam = params.get('nombre');
     if (nombreParam) setNombre(nombreParam);
-    // Track landing
     trackEvent('landing_view', { source: nombreParam ? 'manychat_or_brevo' : 'direct' });
   }, []);
 
@@ -131,7 +170,7 @@ export default function Home() {
       const res = await fetch('/api/astro', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, fechaNacimiento, intencion }),
+        body: JSON.stringify({ nombre: nombreCap, fechaNacimiento, intencion }),
       });
       const data = await res.json();
       setResultado(data.resultado);
@@ -140,7 +179,7 @@ export default function Home() {
       trackEvent('teaser_view', { signo: data.signo || 'unknown' });
       localStorage.setItem('mystora_es_last_test', Date.now().toString());
       localStorage.setItem('mystora_es_last_result', data.resultado);
-      localStorage.setItem('mystora_es_last_nombre', nombre);
+      localStorage.setItem('mystora_es_last_nombre', nombreCap);
       localStorage.setItem('mystora_es_last_date', fechaNacimiento);
       localStorage.setItem('mystora_es_last_signo', data.signo || '');
       setBlocked(true);
@@ -180,19 +219,55 @@ export default function Home() {
   };
 
   const REPORT_SECTIONS = [
-    { icon: '🌟', label: 'Perfil astral completo', detail: 'signo, decanato, planeta dominante' },
-    { icon: '❤️', label: 'Vida amorosa', detail: 'compatibilidades, períodos clave' },
-    { icon: '💼', label: 'Carrera y finanzas', detail: 'oportunidades, bloqueos a liberar' },
-    { icon: '🔢', label: 'Numerología completa', detail: 'camino de vida, expresión, alma' },
-    { icon: '📅', label: 'Previsiones 2026', detail: 'año y mes personal' },
-    { icon: '🔑', label: 'Consejo personalizado', detail: 'guía específica para usted' },
+    { icon: '✦', label: 'Quién es usted realmente', detail: 'Su naturaleza profunda revelada' },
+    { icon: '❤️', label: 'Amor y relaciones', detail: 'Lo que no se atreve a ver' },
+    { icon: '💼', label: 'Carrera y dinero', detail: 'El bloqueo oculto por resolver' },
+    { icon: '🔮', label: 'Sus fuerzas secretas', detail: 'Lo que su nombre revela' },
+    { icon: '📅', label: 'Lo que le espera', detail: 'Los meses clave a vigilar' },
+    { icon: '🔑', label: 'Su guía', detail: 'El consejo que estaba esperando' },
   ];
 
   return (
-    <main className="min-h-screen bg-[#0F0D2E] relative overflow-hidden">
+    <main className="min-h-screen bg-[#080613] relative overflow-hidden">
+      {/* ===== FOND COSMIQUE ANIMÉ ===== */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-900/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-amber-900/10 rounded-full blur-3xl" />
+        {/* Nébuleuses */}
+        <div className="nebula nebula-1" />
+        <div className="nebula nebula-2" />
+        <div className="nebula nebula-3" />
+
+        {/* Étoiles */}
+        {STARS.map((s, i) => (
+          <div
+            key={`star-${i}`}
+            className="star"
+            style={{
+              top: s.top,
+              left: s.left,
+              width: `${s.size}px`,
+              height: `${s.size}px`,
+              animationDuration: `${s.duration}s`,
+              animationDelay: `${i * 0.3}s`,
+              boxShadow: `0 0 ${s.size * 2}px ${s.size / 2}px rgba(255, 255, 255, 0.3)`,
+            }}
+          />
+        ))}
+
+        {/* Particules dorées */}
+        {PARTICLES.map((p, i) => (
+          <div
+            key={`particle-${i}`}
+            className="particle"
+            style={{
+              bottom: p.bottom,
+              left: p.left,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              animationDuration: `${p.duration}s`,
+              animationDelay: `${i * 2}s`,
+            }}
+          />
+        ))}
       </div>
 
       <div className="relative z-10 flex flex-col items-center px-4 py-8 min-h-screen justify-center">
@@ -201,13 +276,14 @@ export default function Home() {
         {step === 'form' && (
           <>
             <div className="text-center mb-6">
-              <h1 className="text-4xl font-bold text-white tracking-tight">🔮 Mystora</h1>
-              <p className="text-[#D4A574] text-base mt-2 font-medium">Descubra lo que los astros revelan sobre usted</p>
+              <p className="text-amber-400/80 text-lg mb-2">✦</p>
+              <h1 className="text-4xl font-bold text-white tracking-tight">Un mensaje le espera</h1>
+              <p className="text-shimmer text-base mt-2 font-medium">Descúbralo en 30 segundos</p>
             </div>
 
             <div className="bg-[#1A1747]/80 backdrop-blur-sm rounded-3xl p-7 w-full max-w-sm shadow-2xl border border-purple-500/10">
               <h2 className="text-white text-xl font-semibold text-center mb-1">Su perfil gratuito</h2>
-              <p className="text-gray-400 text-sm text-center mb-5">30 segundos • 100% gratuito</p>
+              <p className="text-gray-400 text-sm text-center mb-5">Ingrese su nombre y fecha de nacimiento</p>
               <div className="flex flex-col gap-4">
                 <input
                   type="text"
@@ -257,8 +333,8 @@ export default function Home() {
                 </div>
                 <button onClick={handleSubmit}
                   disabled={!nombre || !fechaNacimiento || blocked}
-                  className="bg-gradient-to-r from-purple-700 to-purple-600 hover:from-purple-600 hover:to-purple-500 text-white font-bold py-4 rounded-xl transition-all duration-300 mt-1 disabled:opacity-60 text-lg shadow-lg shadow-purple-900/30">
-                  {blocked ? '🔒 Lectura gratuita utilizada' : '✨ Descubrir mi perfil'}
+                  className="btn-glow bg-gradient-to-r from-purple-700 to-purple-600 hover:from-purple-600 hover:to-purple-500 text-white font-bold py-4 rounded-xl transition-all duration-300 mt-1 disabled:opacity-60 text-lg shadow-lg shadow-purple-900/30">
+                  {blocked ? '🔒 Lectura gratuita utilizada' : '✨ Revelar mi mensaje'}
                 </button>
               </div>
             </div>
@@ -266,9 +342,9 @@ export default function Home() {
             {/* CTA payant quand test déjà utilisé */}
             {blocked && (
               <div className="bg-gradient-to-br from-purple-900/60 to-[#1A1747]/80 rounded-3xl p-6 border border-amber-400/20 mt-4 w-full max-w-sm">
-                <h3 className="text-white text-center font-semibold text-lg mb-1">✨ Su informe completo está listo</h3>
+                <h3 className="text-white text-center font-semibold text-lg mb-1">✨ Su mensaje completo está listo</h3>
                 <p className="text-gray-300 text-sm text-center mb-4">
-                  Perfil astral detallado • Amor • Carrera • Bloqueos • Camino de vida • Previsiones
+                  Quién es usted • Amor • Carrera • Fuerzas secretas • Lo que le espera • Su guía
                 </p>
                 <div className="text-center mb-3">
                   <span className="text-gray-400 line-through text-sm">{anchorPrice}</span>
@@ -276,8 +352,8 @@ export default function Home() {
                   <span className="text-amber-300/70 text-xs ml-2">oferta de lanzamiento</span>
                 </div>
                 <button onClick={handlePaiement} disabled={payLoading || !nombre || !fechaNacimiento}
-                  className="block w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold py-4 rounded-xl text-center text-lg transition-all duration-300 shadow-lg shadow-amber-900/30 disabled:opacity-50">
-                  {payLoading ? '⏳ Redirigiendo...' : `Desbloquear mi informe completo — ${displayPrice}`}
+                  className="btn-amber-glow block w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold py-4 rounded-xl text-center text-lg transition-all duration-300 shadow-lg shadow-amber-900/30 disabled:opacity-50">
+                  {payLoading ? '⏳ Redirigiendo...' : `Leer mi mensaje completo — ${displayPrice}`}
                 </button>
                 {(!nombre || !fechaNacimiento) && (
                   <p className="text-gray-400 text-xs text-center mt-2">Ingrese su nombre y fecha arriba</p>
@@ -289,14 +365,14 @@ export default function Home() {
               </div>
             )}
 
-            {/* Mini preuve sociale sous le formulaire */}
+            {/* Mini preuve sociale */}
             <div className="mt-6 flex items-center gap-2 text-gray-400 text-sm">
               <div className="flex -space-x-2">
-                <div className="w-7 h-7 rounded-full bg-purple-700 flex items-center justify-center text-xs text-white border-2 border-[#0F0D2E]">M</div>
-                <div className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center text-xs text-white border-2 border-[#0F0D2E]">L</div>
-                <div className="w-7 h-7 rounded-full bg-purple-500 flex items-center justify-center text-xs text-white border-2 border-[#0F0D2E]">C</div>
+                <div className="w-7 h-7 rounded-full bg-purple-700 flex items-center justify-center text-xs text-white border-2 border-[#080613]">S</div>
+                <div className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center text-xs text-white border-2 border-[#080613]">K</div>
+                <div className="w-7 h-7 rounded-full bg-purple-500 flex items-center justify-center text-xs text-white border-2 border-[#080613]">F</div>
               </div>
-              <span>+2 400 perfiles revelados este mes</span>
+              <span>+2.400 perfiles generados este mes</span>
             </div>
           </>
         )}
@@ -324,35 +400,35 @@ export default function Home() {
         {step === 'result' && (
           <div ref={resultRef} className="w-full max-w-md">
             <div className="text-center mb-5">
-              <h1 className="text-3xl font-bold text-white">🔮 Mystora</h1>
+              <p className="text-amber-400/80 text-lg mb-1">✦</p>
+              <h1 className="text-3xl font-bold text-white">Mystora</h1>
             </div>
 
             {/* Resultado gratuito */}
             <div className="bg-[#1A1747]/80 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-purple-500/10 mb-4">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xl">✨</span>
-                <h2 className="text-white text-lg font-semibold">{nombre}, esto es lo que los astros revelan</h2>
+                <h2 className="text-white text-lg font-semibold">{nombre}, este es su mensaje</h2>
               </div>
               <div className="text-gray-200 text-[15px] leading-relaxed whitespace-pre-line">{resultado}</div>
 
-              {/* Blurred content — personnalisé */}
+              {/* Blurred content */}
               <div className="relative mt-4">
                 <div className="text-gray-300 text-[15px] leading-relaxed blur-[6px] select-none pointer-events-none" aria-hidden="true">
                   <p className="mb-2">{nombre}, su perfil astral revela un período de transformación profunda que va a impactar sus relaciones y su carrera de manera inesperada. {signoInfo ? `Como ${signoInfo}, l` : 'L'}as alineaciones planetarias indican un giro importante en las próximas semanas.</p>
-                  <p className="mb-2">En el amor, un encuentro o una toma de conciencia va a revolucionar su visión de las cosas. Su camino de vida indica un potencial inexplorado en materia financiera.</p>
-                  <p>Su numerología personal confirma este ciclo de renovación y revela las fechas clave que debe vigilar absolutamente...</p>
+                  <p className="mb-2">En el amor, un encuentro o una toma de conciencia va a revolucionar su visión de las cosas. Su potencial inexplorado en materia financiera está a punto de manifestarse.</p>
+                  <p>Este ciclo de renovación revela las fechas clave que debe vigilar absolutamente...</p>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1A1747]/50 to-[#1A1747] flex items-end justify-center pb-2">
-                  <p className="text-amber-200/80 text-sm font-medium">⬇️ 6 secciones completas le esperan</p>
+                  <p className="text-amber-200/80 text-sm font-medium">⬇️ El resto de su mensaje le espera</p>
                 </div>
               </div>
             </div>
 
-            {/* CTA Card — priorité #1 */}
+            {/* CTA Card */}
             <div className="bg-gradient-to-br from-purple-900/60 to-[#1A1747]/80 rounded-3xl p-6 border border-amber-400/20 mb-4">
-              <h3 className="text-white text-center font-semibold text-lg mb-3">Su informe completo contiene:</h3>
+              <h3 className="text-white text-center font-semibold text-lg mb-3">El resto de su mensaje contiene:</h3>
               
-              {/* Sections visuelles du rapport */}
               <div className="grid grid-cols-2 gap-2 mb-4">
                 {REPORT_SECTIONS.map((s, i) => (
                   <div key={i} className="bg-[#0F0D2E]/60 rounded-xl px-3 py-2.5 border border-purple-700/20">
@@ -372,8 +448,8 @@ export default function Home() {
               </div>
 
               <button onClick={handlePaiement} disabled={payLoading}
-                className="block w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold py-4 rounded-xl text-center text-lg transition-all duration-300 shadow-lg shadow-amber-900/30 disabled:opacity-50">
-                {payLoading ? '⏳ Redirigiendo...' : `Ver mi informe completo — ${displayPrice}`}
+                className="btn-amber-glow block w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold py-4 rounded-xl text-center text-lg transition-all duration-300 shadow-lg shadow-amber-900/30 disabled:opacity-50">
+                {payLoading ? '⏳ Redirigiendo...' : `Leer mi mensaje completo — ${displayPrice}`}
               </button>
               <div className="flex items-center justify-center gap-4 mt-3 text-gray-400 text-xs">
                 <span>🔒 Pago seguro</span>
@@ -382,10 +458,10 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Email capture — filet de rattrapage */}
+            {/* Email capture */}
             {!emailSent ? (
               <div className="bg-[#1A1747]/60 rounded-2xl p-4 border border-purple-500/10">
-                <p className="text-gray-400 text-sm text-center mb-3">¿Aún no está listo/a? Reciba su lectura por email</p>
+                <p className="text-gray-400 text-sm text-center mb-3">¿Aún no está listo(a)? Reciba su mensaje por email</p>
                 <div className="flex gap-2">
                   <input
                     type="email"
@@ -404,7 +480,7 @@ export default function Home() {
               </div>
             ) : (
               <div className="bg-[#1A1747]/60 rounded-2xl p-3 border border-purple-500/10 text-center">
-                <p className="text-[#D4A574] text-sm">✅ ¡Anotado! Recibirá su lectura en {email}</p>
+                <p className="text-[#D4A574] text-sm">✅ ¡Anotado! Recibirá su mensaje en {email}</p>
               </div>
             )}
 
@@ -414,29 +490,29 @@ export default function Home() {
               <div className="bg-[#1A1747]/60 rounded-2xl p-4 border border-purple-500/10">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-amber-400 text-sm">★★★★★</span>
-                  <span className="text-white text-sm font-medium">María G.</span>
+                  <span className="text-white text-sm font-medium">Sara M.</span>
                 </div>
-                <p className="text-gray-300 text-sm leading-relaxed">&quot;Me dio escalofríos leer mi informe. Describió exactamente lo que estoy viviendo en este momento. El camino de vida fue tan preciso que me quedé sin palabras.&quot;</p>
+                <p className="text-gray-300 text-sm leading-relaxed">&quot;Sentí escalofríos al leer mi mensaje. Describió exactamente lo que estoy viviendo.&quot;</p>
               </div>
               <div className="bg-[#1A1747]/60 rounded-2xl p-4 border border-purple-500/10">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-amber-400 text-sm">★★★★★</span>
-                  <span className="text-white text-sm font-medium">Carlos R.</span>
+                  <span className="text-white text-sm font-medium">Karim L.</span>
                 </div>
-                <p className="text-gray-300 text-sm leading-relaxed">&quot;Al principio pensé que era puro cuento, pero cuando leí la parte sobre mi carrera y mi año personal... todo encajó. Hasta lo compartí con mi pareja.&quot;</p>
+                <p className="text-gray-300 text-sm leading-relaxed">&quot;Al principio pensé que era mentira, pero cuando leí la parte sobre mi carrera... todo encaja.&quot;</p>
               </div>
               <div className="bg-[#1A1747]/60 rounded-2xl p-4 border border-purple-500/10">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-amber-400 text-sm">★★★★★</span>
-                  <span className="text-white text-sm font-medium">Lucía M.</span>
+                  <span className="text-white text-sm font-medium">Fatou D.</span>
                 </div>
-                <p className="text-gray-300 text-sm leading-relaxed">&quot;{displayPrice} por un informe tan completo es un regalo. Mi tarotista me cobra 50€ por decirme lo mismo con menos detalle. Lo recomiendo al 100%.&quot;</p>
+                <p className="text-gray-300 text-sm leading-relaxed">&quot;{displayPrice} por un mensaje tan personal es un regalo. Me han cobrado 50€ por algo menos preciso.&quot;</p>
               </div>
             </div>
 
             <button onClick={() => { setStep('form'); setResultado(''); }}
               className="w-full text-gray-500 text-sm mt-4 py-2 hover:text-gray-300 transition-colors text-center">
-              ← Nueva consulta
+              ← Nuevo mensaje
             </button>
           </div>
         )}
