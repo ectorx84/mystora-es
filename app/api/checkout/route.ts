@@ -12,6 +12,13 @@ const LATAM_COUNTRIES = [
 export async function POST(request: NextRequest) {
   const { nombre, fechaNacimiento, email, question } = await request.json();
 
+  if (!nombre || !fechaNacimiento) {
+    return NextResponse.json(
+      { error: 'Nombre y fecha de nacimiento requeridos' },
+      { status: 400 }
+    );
+  }
+
   // Détection pays via header Vercel (gratuit, automatique)
   const country = request.headers.get('x-vercel-ip-country') || '';
   const isLatam = LATAM_COUNTRIES.includes(country);

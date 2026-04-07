@@ -102,7 +102,8 @@ function getCompatibleSigns(signName: string): string[] {
 // ============ API ROUTE ============
 
 export async function POST(request: NextRequest) {
-  const { sessionId } = await request.json();
+  const body = await request.json();
+  const { sessionId, prenom: fallbackPrenom, dateNaissance: fallbackDate } = body;
   
   if (!sessionId) {
     return NextResponse.json({ error: 'Sesión no encontrada' }, { status: 400 });
@@ -121,14 +122,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Pago no confirmado' }, { status: 403 });
   }
 
-  // Récupérer les données depuis les metadata Stripe (source de vérité)
-  const nombre = session.metadata?.prenom || '';
-  const fechaNacimiento = session.metadata?.dateNaissance || '';
-  const email = session.metadata?.email || '';
+  // Récupérer les données — metadata Stripe > fallback body
+  const nombre = session.metadata?.prenom || fallbackPrenom || '';
+  const fechaNacimiento = session.metadata?.dateNaissance || fallbackDate || '';
+  // Email : metadata > Stripe customer_details (toujours capturé au checkout) > vide
+  const email = session.metadata?.email || session.customer_details?.email || '';
   const question = session.metadata?.question || '';
 
   if (!nombre || !fechaNacimiento) {
-    return NextResponse.json({ error: 'Datos incompletos' }, { status: 400 });
+    return NextResponse.json({ needsInfo: true });
   }
 
   const parts = fechaNacimiento.split('-');
@@ -224,7 +226,7 @@ Aproximadamente 800-1000 palabras. Cada sección debe citar los números reales.
     fetch(`${process.env.NEXT_PUBLIC_URL}/api/send-rapport`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, nombre, rapport: texte }),
+      body: JSON.stringify({ email, nombre, rapport: texte, partageId: id }),
     }).catch(() => {});
   }
 
