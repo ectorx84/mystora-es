@@ -162,7 +162,7 @@ export default function LegalPage() {
           <h2 style={sectionTitle}>5. Propiedad intelectual</h2>
           <p style={paragraph}>
             Todos los elementos del sitio (textos, diseño, logotipo, código)
-            son propiedad de Sylvain Mercier y están protegidos por la
+            son propiedad del editor del sitio y están protegidos por la
             legislación vigente en materia de propiedad intelectual.
             Queda prohibida cualquier reproducción total o parcial sin
             autorización previa por escrito.
