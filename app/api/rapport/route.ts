@@ -232,14 +232,28 @@ Aproximadamente 800-1000 palabras. Cada sección debe citar los números reales.
 
   // Tracking serveur — vente confirmée
   const priceType = session.metadata?.priceType || 'standard';
+  const saleCountry = session.metadata?.country || 'unknown';
+  const saleAmount = priceType === 'latam' ? '1,99$' : '4,90€';
   console.log(`[MYSTORA_ES_EVENT] ${JSON.stringify({
     timestamp: new Date().toISOString(),
     event: 'checkout_complete',
     nombre,
-    country: session.metadata?.country || 'unknown',
+    country: saleCountry,
     priceType,
     sessionId,
   })}`);
+
+  // Notification admin — nouvelle vente Mystora ES
+  fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'api-key': process.env.BREVO_API_KEY! },
+    body: JSON.stringify({
+      sender: { name: 'Mystora ES', email: 'contact@mystora.fr' },
+      to: [{ email: 'contact@mystora.fr' }],
+      subject: `💰 Mystora ES — Vente ${saleAmount} — ${nombre} (${saleCountry})`,
+      htmlContent: `<div style="font-family:Arial;padding:20px;"><h2>💰 Nouvelle vente — Mystora ES</h2><p><strong>Client :</strong> ${nombre}</p><p><strong>Email :</strong> ${email || 'non fourni'}</p><p><strong>Pays :</strong> ${saleCountry}</p><p><strong>Montant :</strong> ${saleAmount}</p><p><strong>Type prix :</strong> ${priceType}</p><p><strong>Session ID :</strong> ${sessionId}</p><p><strong>Heure :</strong> ${new Date().toLocaleString('fr-FR', { timeZone: 'America/Guadeloupe' })}</p></div>`,
+    }),
+  }).catch(() => {});
 
   return NextResponse.json({ resultat: texte, prenom: nombre, email, partageId: id, partageUrl: blob.url });
 }
