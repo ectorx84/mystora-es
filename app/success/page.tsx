@@ -239,7 +239,7 @@ function SuccessContent() {
         )}
       </div>
 
-      <p className="text-gray-600 text-xs mt-6">Contenido de entretenimiento — mystora.es · Aviso legal</p>
+      <p className="text-gray-600 text-xs mt-6">Contenido de entretenimiento — mystora.es · <a href="/legal" className="underline hover:text-gray-400 transition-colors">Aviso legal</a></p>
     </main>
   );
 }
