@@ -39,29 +39,9 @@ export default function LegalPage() {
           Aviso Legal y Política de Privacidad
         </h1>
 
-        {/* AVISO LEGAL */}
-        <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>1. Información del responsable</h2>
-          <p style={paragraph}>
-            El presente sitio web <strong>mystora.es</strong> es propiedad y está operado por:
-          </p>
-          <p style={paragraph}>
-            <strong>Sylvain Mercier</strong>
-            <br />
-            Micro-entrepreneur (auto-entrepreneur) — Francia
-            <br />
-            SIRET: 92512791000019
-            <br />
-            Correo electrónico:{" "}
-            <a href="mailto:contact@mystora.es" style={linkStyle}>
-              contact@mystora.es
-            </a>
-          </p>
-        </section>
-
         {/* NATURALEZA DEL SERVICIO */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>2. Naturaleza del servicio</h2>
+          <h2 style={sectionTitle}>1. Naturaleza del servicio</h2>
           <p style={paragraph}>
             Mystora ofrece guías personalizadas de carácter astrológico y
             numerológico con fines exclusivamente de entretenimiento y
@@ -78,7 +58,7 @@ export default function LegalPage() {
 
         {/* CONDICIONES DE COMPRA */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>3. Condiciones de compra</h2>
+          <h2 style={sectionTitle}>2. Condiciones de compra</h2>
           <p style={paragraph}>
             La apertura gratuita (extracto breve) se ofrece sin compromiso. La
             guía completa es un producto digital de pago único. El precio se
@@ -97,19 +77,15 @@ export default function LegalPage() {
             usuario acepta la ejecución inmediata del servicio y renuncia
             expresamente al derecho de desistimiento. No obstante, si considera
             que el servicio no se ha prestado correctamente, puede contactarnos
-            en{" "}
-            <a href="mailto:contact@mystora.es" style={linkStyle}>
-              contact@mystora.es
-            </a>{" "}
-            y estudiaremos su caso de forma individual.
+            en contact@mystora.es y estudiaremos su caso de forma individual.
           </p>
         </section>
 
         {/* POLÍTICA DE PRIVACIDAD */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>4. Política de privacidad (RGPD)</h2>
+          <h2 style={sectionTitle}>3. Política de privacidad (RGPD)</h2>
 
-          <h3 style={subTitle}>4.1. Datos recogidos</h3>
+          <h3 style={subTitle}>3.1. Datos recogidos</h3>
           <p style={paragraph}>
             Recogemos únicamente los datos necesarios para la prestación del
             servicio: nombre (o seudónimo), fecha de nacimiento y, de forma
@@ -117,40 +93,36 @@ export default function LegalPage() {
             recoge los datos de pago de forma independiente.
           </p>
 
-          <h3 style={subTitle}>4.2. Finalidad del tratamiento</h3>
+          <h3 style={subTitle}>3.2. Finalidad del tratamiento</h3>
           <p style={paragraph}>
             Los datos se utilizan para generar su guía personalizada, enviarle
             el informe por correo electrónico (si lo solicita) y, en su caso,
             enviarle comunicaciones comerciales relacionadas con Mystora.
           </p>
 
-          <h3 style={subTitle}>4.3. Base jurídica</h3>
+          <h3 style={subTitle}>3.3. Base jurídica</h3>
           <p style={paragraph}>
             El tratamiento se basa en el consentimiento del usuario (artículo
             6.1.a del RGPD) para la generación de la guía, y en la ejecución
             de un contrato (artículo 6.1.b) para el procesamiento del pago.
           </p>
 
-          <h3 style={subTitle}>4.4. Conservación</h3>
+          <h3 style={subTitle}>3.4. Conservación</h3>
           <p style={paragraph}>
             Los datos personales se conservan durante un máximo de 36 meses
             desde la última interacción. Las guías generadas se almacenan de
             forma cifrada y pueden ser eliminadas previa solicitud.
           </p>
 
-          <h3 style={subTitle}>4.5. Derechos del usuario</h3>
+          <h3 style={subTitle}>3.5. Derechos del usuario</h3>
           <p style={paragraph}>
             De conformidad con el RGPD, usted dispone de los derechos de
             acceso, rectificación, supresión, portabilidad y oposición al
             tratamiento de sus datos. Puede ejercer estos derechos escribiendo
-            a{" "}
-            <a href="mailto:contact@mystora.es" style={linkStyle}>
-              contact@mystora.es
-            </a>
-            . Nos comprometemos a responder en un plazo máximo de 30 días.
+            a contact@mystora.es. Nos comprometemos a responder en un plazo máximo de 30 días.
           </p>
 
-          <h3 style={subTitle}>4.6. Encargados del tratamiento</h3>
+          <h3 style={subTitle}>3.6. Encargados del tratamiento</h3>
           <p style={paragraph}>
             Sus datos pueden ser tratados por los siguientes proveedores:{" "}
             Vercel Inc. (alojamiento, EE.UU.), Stripe Inc. (pagos, EE.UU.),
@@ -162,7 +134,7 @@ export default function LegalPage() {
 
         {/* COOKIES */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>5. Cookies</h2>
+          <h2 style={sectionTitle}>4. Cookies</h2>
           <p style={paragraph}>
             Mystora utiliza únicamente cookies funcionales estrictamente
             necesarias para el correcto funcionamiento del sitio (por ejemplo,
@@ -187,7 +159,7 @@ export default function LegalPage() {
 
         {/* PROPIEDAD INTELECTUAL */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>6. Propiedad intelectual</h2>
+          <h2 style={sectionTitle}>5. Propiedad intelectual</h2>
           <p style={paragraph}>
             Todos los elementos del sitio (textos, diseño, logotipo, código)
             son propiedad de Sylvain Mercier y están protegidos por la
@@ -199,7 +171,7 @@ export default function LegalPage() {
 
         {/* LIMITACIÓN DE RESPONSABILIDAD */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>7. Limitación de responsabilidad</h2>
+          <h2 style={sectionTitle}>6. Limitación de responsabilidad</h2>
           <p style={paragraph}>
             Mystora no garantiza la exactitud, exhaustividad ni idoneidad del
             contenido generado para ningún fin particular. El servicio se
@@ -211,7 +183,7 @@ export default function LegalPage() {
 
         {/* LEY APLICABLE */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>8. Ley aplicable</h2>
+          <h2 style={sectionTitle}>7. Ley aplicable</h2>
           <p style={paragraph}>
             El presente aviso legal se rige por la legislación francesa, sin
             perjuicio de las disposiciones imperativas de protección del
@@ -235,12 +207,9 @@ export default function LegalPage() {
 
         {/* CONTACTO */}
         <section style={{ marginBottom: 32 }}>
-          <h2 style={sectionTitle}>9. Contacto</h2>
+          <h2 style={sectionTitle}>8. Contacto</h2>
           <p style={paragraph}>
-            Para cualquier consulta, reclamación o ejercicio de derechos:{" "}
-            <a href="mailto:contact@mystora.es" style={linkStyle}>
-              contact@mystora.es
-            </a>
+            Para cualquier consulta, reclamación o ejercicio de derechos: contact@mystora.es
           </p>
         </section>
 
@@ -284,6 +253,6 @@ const paragraph: React.CSSProperties = {
 };
 
 const linkStyle: React.CSSProperties = {
-  color: "#d4a574",
+  color: "#c8c3d2",
   textDecoration: "underline",
 };
