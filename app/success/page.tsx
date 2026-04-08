@@ -2,6 +2,18 @@
 import { Suspense, useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+function gtagEvent(action: string, params?: Record<string, string | number | boolean>) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', action, params || {});
+  }
+}
+
 const LOADING_STEPS = [
   { icon: '🔮', text: 'Conexión con su perfil astral...' },
   { icon: '✨', text: 'Análisis de su signo y decanato...' },
@@ -83,6 +95,12 @@ function SuccessContent() {
           setEmail(data.email || '');
           setPartageId(data.partageId);
           setLoading(false);
+          gtagEvent('purchase', {
+            transaction_id: sessionId,
+            value: 4.90,
+            currency: 'EUR',
+            item_name: 'Guia Mystora ES',
+          });
         }, 500);
       })
       .catch(() => {

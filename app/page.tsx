@@ -2,12 +2,25 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 
 // ===== TRACKING =====
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+function gtagEvent(action: string, params?: Record<string, string | number | boolean>) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', action, params || {});
+  }
+}
+
 function trackEvent(event: string, data?: Record<string, string | number | boolean>) {
   fetch('/api/track', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ event, data: data || {} }),
   }).catch(() => {});
+  gtagEvent(event, data);
 }
 
 const LOADING_MESSAGES = [
