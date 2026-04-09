@@ -8,9 +8,10 @@ const LATAM_COUNTRIES = [
 export async function GET(request: NextRequest) {
   const country = request.headers.get('x-vercel-ip-country') || '';
   const isLatam = LATAM_COUNTRIES.includes(country);
+  // TEST PRIX 1,99$ POUR TOUS — temporaire 48-72h (à reverter après 11-12 avril)
   return NextResponse.json({
     country,
-    price: isLatam ? '1,99$' : '4,90€',
+    price: '1,99$',
     isLatam,
   });
 }

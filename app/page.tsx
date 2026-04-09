@@ -80,13 +80,12 @@ export default function Home() {
   const [blocked, setBlocked] = useState(false);
   const [timeLeft, setTimeLeft] = useState('');
   const [emailSent, setEmailSent] = useState(false);
-  const [displayPrice, setDisplayPrice] = useState('4,90€');
-  const [anchorPrice, setAnchorPrice] = useState('14,90€');
+  const [displayPrice, setDisplayPrice] = useState('1,99$');
+  const [anchorPrice, setAnchorPrice] = useState('5,90$');
 
   useEffect(() => {
     fetch('/api/geo').then(r => r.json()).then(d => {
       if (d.price) setDisplayPrice(d.price);
-      if (d.isLatam) setAnchorPrice('9,90$');
     }).catch(() => {});
     const params = new URLSearchParams(window.location.search);
     const nombreParam = params.get('nombre');
@@ -144,10 +143,16 @@ export default function Home() {
     setDia(clean);
     if (clean.length === 2) mesRef.current?.focus();
   };
+  const handleDiaBlur = () => {
+    if (dia.length === 1 && dia !== '0') setDia(dia.padStart(2, '0'));
+  };
   const handleMes = (val: string) => {
     const clean = val.replace(/\D/g, '').slice(0, 2);
     setMes(clean);
     if (clean.length === 2) anioRef.current?.focus();
+  };
+  const handleMesBlur = () => {
+    if (mes.length === 1 && mes !== '0') setMes(mes.padStart(2, '0'));
   };
   const handleAnio = (val: string) => {
     setAnio(val.replace(/\D/g, '').slice(0, 4));
@@ -306,9 +311,11 @@ export default function Home() {
                   <div className="flex gap-2">
                     <input type="tel" inputMode="numeric" placeholder="DD" value={dia}
                       onChange={(e) => handleDia(e.target.value)}
+                      onBlur={handleDiaBlur}
                       className="bg-[#0F0D2E] text-white placeholder-gray-600 rounded-xl px-3 py-3.5 outline-none border border-purple-700/40 focus:border-[#D4A574] w-1/4 text-center text-lg font-semibold transition-colors" />
                     <input ref={mesRef} type="tel" inputMode="numeric" placeholder="MM" value={mes}
                       onChange={(e) => handleMes(e.target.value)}
+                      onBlur={handleMesBlur}
                       className="bg-[#0F0D2E] text-white placeholder-gray-600 rounded-xl px-3 py-3.5 outline-none border border-purple-700/40 focus:border-[#D4A574] w-1/4 text-center text-lg font-semibold transition-colors" />
                     <input ref={anioRef} type="tel" inputMode="numeric" placeholder="AAAA" value={anio}
                       onChange={(e) => handleAnio(e.target.value)}

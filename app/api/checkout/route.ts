@@ -23,12 +23,10 @@ export async function POST(request: NextRequest) {
   const country = request.headers.get('x-vercel-ip-country') || '';
   const isLatam = LATAM_COUNTRIES.includes(country);
 
-  const priceId = isLatam && process.env.STRIPE_PRICE_ID_LATAM
-    ? process.env.STRIPE_PRICE_ID_LATAM
-    : process.env.STRIPE_PRICE_ID!;
+  // TEST PRIX 1,99€ POUR TOUS — temporaire 48-72h (à reverter après 11-12 avril)
+  const priceId = process.env.STRIPE_PRICE_ID_LATAM || process.env.STRIPE_PRICE_ID!;
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
     line_items: [
       {
         price: priceId,
