@@ -1,6 +1,13 @@
 'use client';
 import { useState, useRef, useEffect, useCallback } from 'react';
 
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
+  }
+}
+
 // ===== TRACKING =====
 function gtagEvent(action: string, params?: Record<string, string | number | boolean>) {
   if (typeof window !== 'undefined' && window.gtag) {
