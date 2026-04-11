@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from '@vercel/analytics/react';
-import GoogleAnalytics from './GoogleAnalytics';
+import Script from 'next/script';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Descubra lo que los astros revelan sobre usted. Perfil astrológico personalizado, gratuito e inmediato.",
 };
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,8 +33,21 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');
+              `}
+            </Script>
+          </>
         )}
       </body>
     </html>

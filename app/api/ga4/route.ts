@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 // --- Auth: build a Google OAuth2 access token from service account credentials ---
 
-const GA4_PROPERTY_ID = process.env.GA4_PROPERTY_ID || '531731325';
+const GA4_PROPERTY_ID = process.env.GA4_PROPERTY_ID || '531797664';
 const GA4_CLIENT_EMAIL = process.env.GA4_CLIENT_EMAIL || '';
 const GA4_PRIVATE_KEY = (process.env.GA4_PRIVATE_KEY || '').replace(/\\n/g, '\n');
 const API_SECRET = process.env.GA4_API_SECRET || '';
