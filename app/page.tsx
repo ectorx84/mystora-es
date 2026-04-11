@@ -231,13 +231,20 @@ export default function Home() {
   };
 
   const REPORT_SECTIONS = [
-    { icon: '✦', label: 'Quién es usted realmente', detail: 'Su naturaleza profunda revelada' },
-    { icon: '❤️', label: 'Amor y relaciones', detail: 'Lo que no se atreve a ver' },
-    { icon: '💼', label: 'Carrera y dinero', detail: 'El bloqueo oculto por resolver' },
-    { icon: '🔮', label: 'Sus fuerzas secretas', detail: 'Lo que su nombre revela' },
-    { icon: '📅', label: 'Lo que le espera', detail: 'Los meses clave a vigilar' },
-    { icon: '🔑', label: 'Su guía', detail: 'El consejo que estaba esperando' },
+    { icon: '✦', label: 'Quién es usted realmente', detail: 'Lo que su nombre oculta sobre usted' },
+    { icon: '❤️', label: 'Amor y relaciones', detail: 'Por qué atrae siempre el mismo perfil' },
+    { icon: '💼', label: 'Carrera y dinero', detail: 'El bloqueo preciso que le frena' },
+    { icon: '🔮', label: 'Sus fuerzas ocultas', detail: 'Lo que nadie le ha explicado aún' },
+    { icon: '📅', label: 'Lo que se acerca', detail: 'Los meses que van a cambiar algo' },
+    { icon: '🔑', label: 'Su guía personal', detail: 'El consejo que lleva tiempo esperando' },
   ];
+
+  const intentionHook: Record<string, string> = {
+    amor: `Hay un patrón en su vida amorosa que se repite. La parte bloqueada revela exactamente por qué, y qué hacer con ello.`,
+    carrera: `Algo le frena en su carrera de forma invisible. La parte bloqueada lo nombra con precisión.`,
+    dinero: `Su relación con el dinero tiene una raíz precisa. La parte bloqueada la revela directamente.`,
+    bloqueo: `El bloqueo que siente tiene un origen muy concreto. La parte bloqueada lo explica sin rodeos.`,
+  };
 
   return (
     <main className="min-h-screen bg-[#080613] relative overflow-hidden">
@@ -429,20 +436,26 @@ export default function Home() {
               {/* Blurred content */}
               <div className="relative mt-4">
                 <div className="text-gray-300 text-[15px] leading-relaxed blur-[6px] select-none pointer-events-none" aria-hidden="true">
-                  <p className="mb-2">{nombre}, su perfil astral revela un período de transformación profunda que va a impactar sus relaciones y su carrera de manera inesperada. {signoInfo ? `Como ${signoInfo}, l` : 'L'}as alineaciones planetarias indican un giro importante en las próximas semanas.</p>
-                  <p className="mb-2">En el amor, un encuentro o una toma de conciencia va a revolucionar su visión de las cosas. Su potencial inexplorado en materia financiera está a punto de manifestarse.</p>
-                  <p>Este ciclo de renovación revela las fechas clave que debe vigilar absolutamente...</p>
+                  <p className="mb-2">{nombre}, su perfil revela un patrón muy preciso que explica por qué ciertas situaciones se repiten en su vida. {signoInfo ? `Su signo ${signoInfo} amplifica` : 'Su fecha de nacimiento amplifica'} este patrón de una manera que muy pocas personas conocen.</p>
+                  <p className="mb-2">En sus relaciones, hay un tipo de persona que sigue apareciendo. Hay una razón muy concreta para eso, ligada directamente a las letras de su nombre y a los números de su fecha.</p>
+                  <p>La parte que sigue revela el elemento preciso que ha estado buscando sin saberlo...</p>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1A1747]/50 to-[#1A1747] flex items-end justify-center pb-2">
-                  <p className="text-amber-200/80 text-sm font-medium">⬇️ El resto de su mensaje le espera</p>
+                  <p className="text-amber-200/80 text-sm font-medium">La parte más importante del mensaje de {nombre} está bloqueada ↓</p>
                 </div>
               </div>
             </div>
 
             {/* CTA Card */}
             <div className="bg-gradient-to-br from-purple-900/60 to-[#1A1747]/80 rounded-3xl p-6 border border-amber-400/20 mb-4">
-              <h3 className="text-white text-center font-semibold text-lg mb-3">El resto de su mensaje contiene:</h3>
-              
+              <h3 className="text-white text-center font-semibold text-lg mb-1">Lo que {nombre} aún no ha visto:</h3>
+              {intencion && intentionHook[intencion] && (
+                <p className="text-amber-200/80 text-sm text-center mb-3 leading-relaxed">{intentionHook[intencion]}</p>
+              )}
+              {!intencion && (
+                <p className="text-amber-200/80 text-sm text-center mb-3 leading-relaxed">La parte bloqueada contiene la respuesta que ha estado buscando.</p>
+              )}
+
               <div className="grid grid-cols-2 gap-2 mb-4">
                 {REPORT_SECTIONS.map((s, i) => (
                   <div key={i} className="bg-[#0F0D2E]/60 rounded-xl px-3 py-2.5 border border-purple-700/20">
@@ -463,9 +476,10 @@ export default function Home() {
 
               <button onClick={handlePaiement} disabled={payLoading}
                 className="btn-amber-glow block w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold py-4 rounded-xl text-center text-lg transition-all duration-300 shadow-lg shadow-amber-900/30 disabled:opacity-50">
-                {payLoading ? '⏳ Redirigiendo...' : `Leer mi mensaje completo — ${displayPrice}`}
+                {payLoading ? '⏳ Redirigiendo...' : `Desbloquear mi informe completo — ${displayPrice}`}
               </button>
-              <div className="flex items-center justify-center gap-4 mt-3 text-gray-400 text-xs">
+              <p className="text-gray-500 text-xs text-center mt-2">Lectura inmediata • Acceso en segundos • Sin suscripción</p>
+              <div className="flex items-center justify-center gap-4 mt-2 text-gray-400 text-xs">
                 <span>🔒 Pago seguro</span>
                 <span>⚡ Resultado instantáneo</span>
                 <span>📧 Envío por email</span>
